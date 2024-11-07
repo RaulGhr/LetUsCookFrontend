@@ -1,4 +1,16 @@
+@import "./utils/ColorPallet.scss";
+
+*{
+  // border: 1px solid red;
+  margin: 0px;
+}
+
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  background-color: $light-gray;
+  // width: 100%;
+  height: 100vh;
+  
 }
 

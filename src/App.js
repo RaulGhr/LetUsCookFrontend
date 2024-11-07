@@ -2,10 +2,13 @@ import {Routes, Route, Navigate} from 'react-router-dom';
 
 import './App.scss';
 
+const dummyElemet = () => {}
+
 function App() {
   return (
-    <div className="App">
-    </div>
+    <Routes>
+      <Route path="/" element={<dummyElemet/>}/>
+    </Routes>
 
   );
 }

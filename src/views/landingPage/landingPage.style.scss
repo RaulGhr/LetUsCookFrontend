@@ -1,0 +1,49 @@
+@import "../../utils/ColorPallet.scss";
+
+.LandingPage{
+    display: flex;
+    flex-direction: row;
+    padding: 0px 50px;
+    // justify-content: center;
+    .leftPart{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Rochester", cursive;
+        width: 50%;
+        height: 90vh;
+
+        h1{
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        p{
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        button{
+            padding: 10px 20px;
+            font-size: 20px;
+            border: none;
+            background-color: $accent-color;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+    }
+
+    .rightPart{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 90vh;
+        img{
+            width:  90%;
+        }
+    }
+    
+}

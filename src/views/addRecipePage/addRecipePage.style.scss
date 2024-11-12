@@ -1,0 +1,214 @@
+@import "../../utils/ColorPallet.scss";
+
+.AddRecipePage{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    h1{
+        font-size: 2rem;
+        font-weight: 500;
+        text-align: center;
+        // color: $text-color;
+        margin-bottom: 10px;
+    }
+    
+    .recepiInformation{
+
+        height: 85vh;
+        width: 25vw;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        margin-top: 5vh;
+        padding: 0px 10px;
+
+        .field{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 1.2rem;
+                font-weight: 500;
+                // color: $text-color;
+                margin-bottom: 5px;
+            }
+            h2{
+                font-size: 1.2rem;
+                font-weight: 500;
+                // color: $text-color;
+                margin-bottom: 5px;
+            }
+            
+            
+        }
+        .text-field{
+            input[type="text"]{
+                padding: 7px;
+                border: 1px solid #909BAB;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                background-color: transparent;
+                resize: vertical;
+
+            }
+
+            textarea{
+                padding: 7px;
+                border: 1px solid #909BAB;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                background-color: transparent;
+                resize: vertical;
+                min-height: 20px;
+            }
+        }
+
+        .text-field{
+            input[type="text"]{
+                padding: 7px;
+                border: 1px solid #909BAB;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                background-color: transparent;
+                resize: vertical;
+
+            }
+
+            textarea{
+                padding: 7px;
+                border: 1px solid #909BAB;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                background-color: transparent;
+                resize: vertical;
+                min-height: 20px;
+            }
+        }
+
+        .double-text-field{
+            .field{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                input[type="text"]{
+                    width: 45%;
+                    padding: 7px;
+                    border: 1px solid #909BAB;
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                    background-color: transparent;
+                    resize: vertical;
+                }
+            }
+        }
+
+        .ingredients{
+            .selection-row{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                input[type="text"]{
+                    width: 45%;
+                    padding: 7px;
+                    border: 1px solid #909BAB;
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                    background-color: transparent;
+                    resize: vertical;
+    
+                }
+
+                select{
+                    width: 45%;
+                    padding: 7px;
+                    border: 1px solid #909BAB;
+                    border-radius: 5px;
+                    margin-bottom: 10px;
+                    background-color: transparent;
+                    resize: vertical;
+                }
+            }
+        }
+
+        .instructions{
+            
+            display: flex;
+            flex-direction: column;
+            // justify-content: space-between;
+            // align-items: center;
+
+            label{
+                font-size: 0.9rem;
+                font-weight: 500;
+                // color: $text-color;
+                margin-bottom: 5px;
+            }
+
+            input[type="text"]{
+                // width: 45%;
+                padding: 7px;
+                border: 1px solid #909BAB;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                background-color: transparent;
+                resize: vertical;
+
+            }
+
+        }
+
+
+
+        &::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+            background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            border-left: 6px solid transparent;
+            border-right: 2px solid transparent;
+            border-top: 6px solid transparent;
+            border-bottom: 2px solid transparent;
+            background-color: #909BAB;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            border-left: 2px solid transparent;
+            border-top: 2px solid transparent;
+            border-radius: 10px;
+        }
+
+        .buttonContainer{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+
+            button{
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: $accent-color;
+                color: white;
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: 500;
+                margin-right: 10px;
+            }
+
+            button:hover{
+                background-color: $accent-color-hover;
+            }
+        }
+    }
+    
+}

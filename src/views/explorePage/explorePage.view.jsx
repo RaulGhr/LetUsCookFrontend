@@ -10,9 +10,12 @@ import {getRecipesPreview} from '../../services/recipe.api';
 
 const ExplorePage = () => {
     const [recipes, setRecipes] = useState([]);
+    const navigate = useNavigate();
+
     useEffect(() => {
         getRecipesPreview().then(recipes => setRecipes(recipes));
     }, []);
+
 
 
     // const navigate = useNavigate();
@@ -23,7 +26,7 @@ const ExplorePage = () => {
                    <RecipePreview key={index} Title={recipe.Title} Img={recipe.Img} IngredinetsNumber={recipe.IngredinetsNumber} PrepTime={recipe.PrepTime} />
                 ))}
             </div>
-                <button className='addButton'><img src={addIcon} alt="" /></button>
+                <button className='addButton' onClick={() => navigate('/addRecipe')}><img src={addIcon} alt="" /></button>
 
 
         </div>

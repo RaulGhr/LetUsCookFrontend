@@ -8,7 +8,7 @@
   }
   
   .register-left {
-    background-color: #e74c3c; 
+    background-color: #e94b42; 
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -18,24 +18,12 @@
     padding: 20px;
   }
   
-  .register-left .logo img {
-    width: 100px;
+  .login-left .logo img {
+    width: 500px;
     margin-bottom: 20px;
+    height: 500px;
   }
   
-  .register-left h1 {
-    font-family: 'Bungee', sans-serif;
-    font-size: 36px;
-    font-weight: normal;
-    margin: 10px 0;
-    color: white;
-  }
-  
-  .register-left p {
-    font-size: 16px;
-    margin-top: 5px;
-    color: white;
-  }
   
   .register-right {
     background-color: #f8f8f8;

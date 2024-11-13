@@ -9,7 +9,7 @@
   }
   
   .login-left {
-    background-color: #e74c3c; // Culoare roșie
+    background-color: #e94b42; 
     color: white;
     width: 50%;
     display: flex;
@@ -21,20 +21,11 @@
   }
   
   .login-left .logo img {
-    width: 100px;
+    width: 500px;
     margin-bottom: 20px;
+    height: 500px;
   }
   
-  .login-left h1 {
-    font-family: 'Bungee', sans-serif;
-    font-size: 36px;
-    margin: 10px 0;
-  }
-  
-  .login-left p {
-    font-size: 16px;
-    margin-top: 5px;
-  }
   
   .login-right {
     background-color: #f8f8f8;

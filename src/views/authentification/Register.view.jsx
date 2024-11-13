@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './Register.style.scss';
+import logo from '../../assets/images/Image.jpeg';
+
+
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -14,12 +17,10 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-left">
-        <div className="logo">
-          <img src="src/assets/images/Logo.jpeg" alt="LetUsCook Logo" />
-          <h1 className="unifrakturmaguntia-regular">LETUSCOOK</h1>
-
-          <p>Cook smart, eat balanced!</p>
+      <div className="logo">
+         <img src={logo} alt="LetUsCook Logo" />
         </div>
+
       </div>
       <div className="register-right">
         <h2>Create your Account</h2>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Login.style.scss';
+import logo from '../../assets/images/Image.jpeg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,10 +13,8 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-left">
-        <div className="logo">
-          <img src="../../assets/images/Logo.jpeg" alt="LetUsCook Logo" />
-          <h1>LETUSCOOK</h1>
-          <p>Cook smart, eat balanced!</p>
+      <div className="logo">
+         <img src={logo} alt="LetUsCook Logo" />
         </div>
       </div>
       <div className="login-right">

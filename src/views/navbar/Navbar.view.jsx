@@ -28,9 +28,13 @@ const Navbar = () => {
                 </div>
 
                 {!loggedIn ?
-                    <div className="auth">
-                        <button className='login'>Log in</button>
-                        <button className='register'>Register</button>
+                    <div className="authentification">
+                    <a href="/login">
+                         <button className='login'>Log in</button>
+                         </a>
+                          <a href="/register">
+                          <button className='register'>Register</button>
+                            </a>
                     </div>
                 :
                     <Fragment>

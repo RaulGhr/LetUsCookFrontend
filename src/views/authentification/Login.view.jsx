@@ -1,13 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.style.scss';
 import logo from '../../assets/images/Image.jpeg';
+import { useAuth } from '../../contexts/authContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  const handleLogin = (e) => {
+  const { user, login, isLoading } = useAuth();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      setError('All fields are required.');
+      return;
+    }
+
+    try {
+      await login(email, password);
+      navigate('/');
+    }
+    catch (err) {
+      setError('Login failed. Please try again.');
+    }
+
   };
 
   return (
@@ -20,6 +47,8 @@ const Login = () => {
       <div className="login-right">
         <h2>Login to your Account</h2>
         <form onSubmit={handleLogin}>
+        {error && <p className="error-message">{error}</p>}
+
         <label>Email</label>
           <input
             type="email"

@@ -6,8 +6,8 @@ import navbarLogo from "../../assets/images/LogoNavbar.png";
 import { useAuth } from '../../contexts/authContext';
 
 const Navbar = () => {
-    const [loggedIn, setLoggedIn] = useState(true);
-    const [currentPath, setCurrentPath] = useState('feed');
+    // const [loggedIn, setLoggedIn] = useState(false);
+    const [currentPath, setCurrentPath] = useState('explore');
     const navigate = useNavigate();
 
     const { logout, user } = useAuth();
@@ -33,14 +33,14 @@ const Navbar = () => {
                     <img src={navbarLogo} alt="Logo" />
                 </div>
 
-                {!loggedIn ?
-                    <div className="authentification">
-                    <a href="/login">
-                         <button className='login'>Log in</button>
-                         </a>
-                          <a href="/register">
-                          <button className='register'>Register</button>
-                            </a>
+                {!user ?
+                     <div className="end_section">
+                  
+                        <div className='auth'>
+                        <button className="login" onClick={() => navigate('/login')}>Log In</button>
+                        <button className="register" onClick={() => navigate('/register')}>Sign Up</button>
+                        </div>
+               
                     </div>
                 :
                     <Fragment>
@@ -69,17 +69,11 @@ const Navbar = () => {
                     </div>
 
                     <div className="end_section">
-                      {user ? (
+                      
                         <>
-                          <button className="logout" onClick={handleLogout}>Log Out</button>
+                          {/* <button className="logout" onClick={handleLogout}>Log Out</button> */}
                           <button className="profile">Profile</button>
-                        </>
-                      ) : (
-                        <div className='auth'>
-                          <button className="login" onClick={() => navigate('/login')}>Log In</button>
-                          <button className="register" onClick={() => navigate('/register')}>Sign Up</button>
-                        </div>
-                      )}
+                        </>                 
                     </div>
 
                     </Fragment>

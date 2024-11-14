@@ -1,68 +1,145 @@
 .ViewRecipePage {
-    font-family: Arial, sans-serif;
-    padding: 60px;
-    margin: auto;
-    background-color: #fdfdfd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+    // font-family: Arial, sans-serif;
+    // padding: 60px;
+    // margin: o px;
+    // background-color: #fdfdfd;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    // border-radius: 12px;
+    display: flex;
+    height: 90vh;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  
   
     .recipe-container {
       display: flex;
-      gap: 40px; // Adjusted gap for a more balanced full-screen layout
-  
-      .left-column {
-        flex: 1.5;
-  
-        h1 {
-          font-size: 2em;
-          color: #333;
-          margin-bottom: 10px;
-        }
-  
-        img {
-          width: 100%; // Adjusted to fit within the full width
-          height: auto;
-          border-radius: 8px;
-        }
-      }
-  
-      .right-column {
-        flex: 2;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 60vw;
+      height: 85vh;
+      overflow-y: scroll;
+      // gap: 40px; // Adjusted gap for a more balanced full-screen layout
+
+      .recipe-description{
+        width: 50vw;
         display: flex;
-        flex-direction: column;
-        gap: 100px;
-  
-        .description {
-          font-weight: bold;
-          color: #666;
-          margin-bottom: 15px;
-        }
-  
-        .ingredients, .instructions {
-          padding: 10px;
-          background-color: #fafafa;
-          border-radius: 8px;
-  
-          h2 {
-            margin: 0 0 5px 0;
-            color: #333;
-            font-size: 1.1em;
-          }
-  
-          p {
-            margin: 0;
-            font-size: 0.9em;
-            color: #555;
+        flex-direction: row;
+        height: 50vh;
+
+        background-color: #fdfdfd;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 12px !important;
+
+        .left-column{
+          width: 40%;
+
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit:cover;
+            border-radius:  12px 0px 0px 12px;
+
           }
         }
-  
-        .time-and-servings {
+
+        .right-column{
           display: flex;
+          width: 50%;
+          flex-direction: column;
           justify-content: space-between;
-          font-size: 0.9em;
-          color: #777;
+          padding: 30px;
+
+          .time-and-servings{
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between; 
+          }
+        }
+
+      }
+
+      .recipe-details{
+        margin-top: 18px;
+        display: flex;
+        flex-direction: row;
+        width: 50vw;
+        // height: 5
+        // align-items: center;
+        justify-content: space-between;
+
+        .ingredients{
+
+          h2{
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+          }
+          display: flex;
+          flex-direction: column;
+          width: 40%;
+          padding: 30px;
+          background-color: #fdfdfd;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          border-radius: 12px !important;
+          margin-right: 10px;
+
+          .ingredients-list{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 12px;
+          }
+        }
+
+        .instructions{
+
+          h2{
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+          }
+          display: flex;
+          flex-direction: column;
+          width: 40%;
+          padding: 30px;
+          background-color: #fdfdfd;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          border-radius: 12px !important;
+          // margin-right: 10px;
+
+          
         }
       }
+
+      &::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+          -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+          border-left: 6px solid transparent;
+          border-right: 2px solid transparent;
+          border-top: 6px solid transparent;
+          border-bottom: 2px solid transparent;
+          background-color: #909BAB;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+          border-left: 2px solid transparent;
+          border-top: 2px solid transparent;
+          border-radius: 10px;
+      }
+  
+      
+  
+      
     }
   }
   

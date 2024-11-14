@@ -16,13 +16,15 @@ export const register = async (username, email, password) => {
 
 export const login = async (email, password) => {
 
-  const user = usersDB.get(email);
-  if (user && user.password === password) {
-    mockUserData = user;
-    return { success: true, user };
-  }
-
-  return { success: false, error: 'Invalid email or password' };
+  mockUserData = { username: 'Test User', email: ''};
+  return { success: true, user: mockUserData };
+  // const user = usersDB.get(email);
+  // if (user && user.password === password) {
+  //   mockUserData = user;
+  //   return { success: true, user };
+  // }
+ 
+  // return { success: false, error: 'Invalid email or password' };
 };
 
 export const logout = async () => {

@@ -20,16 +20,23 @@ const ExplorePage = () => {
 
     // const navigate = useNavigate();
     return (
-        <div className="ExplorePage">
-            <div className="recipeList">
-                {recipes.map((recipe, index) => (
-                   <RecipePreview key={index} Title={recipe.Title} Img={recipe.Img} IngredinetsNumber={recipe.IngredinetsNumber} PrepTime={recipe.PrepTime} />
-                ))}
-            </div>
-                <button className='addButton' onClick={() => navigate('/addRecipe')}><img src={addIcon} alt="" /></button>
-
-
+      <div className="ExplorePage">
+        <div className="recipeList">
+          {recipes.map((recipe, index) => (
+            <RecipePreview
+              key={index}
+              Id={recipe.Id}
+              Title={recipe.Title}
+              Img={recipe.Img}
+              IngredinetsNumber={recipe.IngredinetsNumber}
+              PrepTime={recipe.PrepTime}
+            />
+          ))}
         </div>
+        <button className="addButton" onClick={() => navigate("/addRecipe")}>
+          <img src={addIcon} alt="" />
+        </button>
+      </div>
     );
 };
 

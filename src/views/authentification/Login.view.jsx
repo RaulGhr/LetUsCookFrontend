@@ -29,7 +29,7 @@ const Login = () => {
 
     try {
       await login(email, password);
-      navigate('/');
+      navigate('/explore');
     }
     catch (err) {
       setError('Login failed. Please try again.');

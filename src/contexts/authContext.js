@@ -6,7 +6,8 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(getCurrentUser());
+  const [user, setUser] = useState();
+  console.log("user",user);
   const [isLoading, setIsLoading] = useState(false);
 
   const register = async (username, email, password) => {

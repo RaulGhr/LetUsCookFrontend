@@ -28,8 +28,11 @@ const ExplorePage = () => {
               Id={recipe.Id}
               Title={recipe.Title}
               Img={recipe.Img}
-              IngredinetsNumber={recipe.IngredinetsNumber}
+              IngredinetsNumber={Object.keys(recipe.Ingredinets).length}
               PrepTime={recipe.PrepTime}
+              Rateing={recipe.Rateing}
+              isFavorite={recipe.isFavorite}
+              User={recipe.User}
             />
           ))}
         </div>

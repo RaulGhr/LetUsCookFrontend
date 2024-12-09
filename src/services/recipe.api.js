@@ -31,6 +31,12 @@ var recipesDemo = [{
   },
   PrepTime: "15",
   CookTime: "30",
+  Rateing: "90",
+  isFavorite: true,
+  User: {
+    username: "Gordon Ramsay",
+    profileImage: "https://dramscotland.co.uk/wp-content/uploads/2021/08/Gordon-Ramsay-.jpg",
+  },
 },
 
 ];
@@ -100,7 +106,20 @@ export const saveRecipe = async (recipe) => {
       },
       PrepTime: "20",
       CookTime: "30",
+      Rateing: "90",
+      User: {
+        username: "Gordon Ramsay",
+        profileImage: "https://dramscotland.co.uk/wp-content/uploads/2021/08/Gordon-Ramsay-.jpg",
+      },
     };
     recipesDemo.push(demoRecipe);
     alert('Recipe saved');
 }
+
+export const changeRecipeFavoriteStatus = async (recipeId, userId, status) => {
+  return withLogs(axios.put(`${baseUrl}/recipes/favorite`, {recipeId, userId, status}), 'changeRecipeFavoriteStatus');
+  // const recipe = recipesDemo.find((recipe) => recipe.Id == recipeId);
+  // recipe.isFavorite = status;
+  // alert('Favorite status changed');
+
+};

@@ -72,7 +72,7 @@ const Navbar = () => {
                       
                         <>
                           {/* <button className="logout" onClick={handleLogout}>Log Out</button> */}
-                          <button className="profile">Profile</button>
+                          <button className={'profile' + (currentPath === 'profile' ? ' selected' : '')}onClick={() => { navigate('/profile'); handlerSelectedSection('profile'); }}>Profile</button>
                         </>                 
                     </div>
 

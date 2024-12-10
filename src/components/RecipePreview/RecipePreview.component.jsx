@@ -5,7 +5,7 @@ import "./RecipePreview.style.scss";
 import like_white from "../../assets/icons/like_white.png";
 import fav from "../../assets/icons/fav.png";
 import fav_selected from "../../assets/icons/fav_selected.png";
-
+import Reviews from "../Review/Reviews";
 import { changeRecipeFavoriteStatus } from "../../services/recipe.api";
 import { useAuth } from "../../contexts/authContext";
 
@@ -21,7 +21,16 @@ import { useAuth } from "../../contexts/authContext";
  * @param {number} props.PrepTime - The preparation time in minutes.
  * @returns {JSX.Element} The RecipePreview component.
  */
-const RecipePreview = ({ Id, Title, Img, IngredinetsNumber, PrepTime, Rateing, User, isFavorite }) => {
+const RecipePreview = ({
+  Id,
+  Title,
+  Img,
+  IngredinetsNumber,
+  PrepTime,
+  Rateing,
+  User,
+  isFavorite,
+}) => {
   const [isFav, setIsFav] = React.useState(isFavorite);
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -35,16 +44,20 @@ const RecipePreview = ({ Id, Title, Img, IngredinetsNumber, PrepTime, Rateing, U
 
   return (
     <div className="RecipePreview" onClick={() => navigate("/explore/" + Id)}>
-      <div className="imagePlaceHolder" style={{ backgroundImage: `url(${Img})` }}>
+      <div
+        className="imagePlaceHolder"
+        style={{ backgroundImage: `url(${Img})` }}
+      >
         <div className="buttons">
           <div className="likes">
             <img src={like_white} alt="" />
             <p>{Rateing}%</p>
           </div>
-          {isFav ? 
-            <img src={fav_selected} alt="" onClick={favoriteClickHandler} />:
+          {isFav ? (
+            <img src={fav_selected} alt="" onClick={favoriteClickHandler} />
+          ) : (
             <img src={fav} alt="" onClick={favoriteClickHandler} />
-          }
+          )}
         </div>
         <div className="creator">
           <img src={User.profileImage} alt="" />
@@ -56,6 +69,7 @@ const RecipePreview = ({ Id, Title, Img, IngredinetsNumber, PrepTime, Rateing, U
       <p>
         {IngredinetsNumber} Ingredients | {PrepTime} Minutes
       </p>
+      <Reviews recipeId={Id} />
     </div>
   );
 };

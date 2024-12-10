@@ -11,9 +11,12 @@ import ViewRecipePage from "./views/viewRecipePage/viewRecipePage.view";
 import ProfilePage from "./views/ProfilePage/ProfilePage";
 
 import { AuthProvider } from './contexts/authContext';
+import ProfilePage from './views/myProfilePage/myProfilePage.view';
+import OthersProfilePage from './views/othersProfilePage/othersProfilePage.view';
 
 function App() {
   return (
+
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Navbar />}>
@@ -24,10 +27,12 @@ function App() {
             <Route path="/addRecipe" element={<AddRecipePage />} />
             <Route path="/explore/:id" element={<ViewRecipePage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/1" element={<OthersProfilePage/>} />
             <Route path="*" element={<Navigate to="/" />} />
           </Route>
         </Routes>
       </AuthProvider>
+
   );
 }
 

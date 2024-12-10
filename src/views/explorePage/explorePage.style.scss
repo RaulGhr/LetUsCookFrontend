@@ -1,14 +1,73 @@
 @import "../../utils/ColorPallet.scss";
-
+*{
+    // border: 1px solid red;
+}
 .ExplorePage{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     
-    .recipeList{
+    
+    .searchSection{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 48vw;
+        margin-top: 30px;
+       
+        .searchBar{
+            display: flex;
+            flex-direction: row;
+            justify-content:space-between;
+            align-items: center;
+            width: 70%;
+            height: 40px;
+            background-color: #ece6f0;
+            border-radius: 30px;
+            input{
+                background-color: transparent;
+                border: none;
+                margin-left: 10px;
+                width: 100%;
 
-        height: 85vh;
+                &:focus{
+                    outline: none;
+                }
+            }
+            img{
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+                margin: 5px;
+                margin-right: 10px;
+            }
+        }
+
+        .filterBtn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 15%;
+            height: 40px;
+            background-color: #ece6f0;
+            border-radius: 30px;
+            text-align: center;
+            border: none;
+            // padding: 10px;
+
+            &:focus{
+                outline: none;
+            }
+            
+            
+        }
+    }
+
+    .scrollableList{
+
+        height: 78vh;
         width: 48vw;
         display: flex;
         flex-direction: row;
@@ -21,8 +80,69 @@
         margin-top: 5vh;
         // padding: 0px 0px;
 
+        .searchResults{
+            width: 100%;
+        }
 
+        .RecipePreview{
+            width: 160px;
+        }
 
+        .creatorsSection{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            .creators{
+                align-self: center;
+                width: 80%;
+                display: flex;
+                flex-direction: row;
+                gap: 60px;
+                overflow-x: scroll;
+                margin-top: 10px;
+                
+
+                &::-webkit-scrollbar {
+                    width: 12px;
+                    height: 12px;
+                    background-color: transparent;
+                }
+        
+                &::-webkit-scrollbar-thumb {
+                    -webkit-background-clip: padding-box;
+                    background-clip: padding-box;
+                    border-left: 6px solid transparent;
+                    border-right: 2px solid transparent;
+                    border-top: 6px solid transparent;
+                    border-bottom: 2px solid transparent;
+                    background-color: #909BAB;
+                }
+                &::-webkit-scrollbar-thumb:hover {
+                    border-left: 2px solid transparent;
+                    border-top: 2px solid transparent;
+                    border-radius: 10px;
+                }
+            }
+        }
+
+        .smallCreatorPreviewDemo{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 160px;
+            margin-right: 10px;
+            img{
+                width: 100px;
+                // height: 30px;
+                border-radius: 100%;
+                // object-fit: cover;
+            }
+        }
+
+        .recipesHeaderSection{
+            width: 100%;
+        }
         &::-webkit-scrollbar {
             width: 12px;
             height: 12px;
@@ -45,29 +165,29 @@
         }
     }
 
-    .addButton{
-        // position: absolute;
-        left: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-self: end;
-        border: none;
-        margin: 0px;
-        // margin-left: 10px;
-        background-color: $accent-color;
-        border-radius: 100%;
-        padding: 9px;
-        cursor: pointer;
-        img{
-            width: 1.3vw;
-            // margin: 10px;
-            border-radius: 100%;
-        }
+    // .addButton{
+    //     // position: absolute;
+    //     left: 0px;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     align-self: end;
+    //     border: none;
+    //     margin: 0px;
+    //     // margin-left: 10px;
+    //     background-color: $accent-color;
+    //     border-radius: 100%;
+    //     padding: 9px;
+    //     cursor: pointer;
+    //     img{
+    //         width: 1.3vw;
+    //         // margin: 10px;
+    //         border-radius: 100%;
+    //     }
 
-        &:hover{
-            background-color: $accent-color-hover;
-        }
-    }
+    //     &:hover{
+    //         background-color: $accent-color-hover;
+    //     }
+    // }
     
 }

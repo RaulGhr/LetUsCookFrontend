@@ -5,23 +5,76 @@ import RecipePreview from '../../components/RecipePreview/RecipePreview.componen
 
 import "./explorePage.style.scss";
 import addIcon from "../../assets/icons/plus.png";
+import searchIcon from "../../assets/icons/search.png";
 import {getRecipesPreview} from '../../services/recipe.api';
+import {getCreatorsPreview} from '../../services/creators.api';
 
 
 const ExplorePage = () => {
     const [recipes, setRecipes] = useState([]);
+    const [creators, setCreators] = useState([]);
+    const [search, setSearch] = useState("");
+    const [searched, setSearched] = useState("");
+    const [filter, setFilter] = useState("Recipes");
     const navigate = useNavigate();
 
     useEffect(() => {
-        getRecipesPreview().then(recipes => setRecipes(recipes));
+        handleSearch();
     }, []);
 
+    const handleSearch = () => {
+        setSearched(search);
+        if(search === ""){
+          getRecipesPreview(search).then(recipes => setRecipes(recipes));
+          getCreatorsPreview(search).then(creators => setCreators(creators));
+          return;
+        }
+        if(filter === "Recipes"){
+            getRecipesPreview(search).then(recipes => setRecipes(recipes));
+        } else {
+            getCreatorsPreview(search).then(creators => setCreators(creators));
+        }
+    };
+
+    const handleFilter = (e) => {
+        setFilter(e.target.value);
+    };
 
 
     // const navigate = useNavigate();
     return (
       <div className="ExplorePage">
-        <div className="recipeList">
+        <section className="searchSection">
+          <div className="searchBar">
+            <input type="text" placeholder='Search' onChange={(e)=>setSearch(e.target.value)}/>
+            <img src={searchIcon} alt="" onClick={handleSearch}/>
+          </div>
+          <select className='filterBtn' name="" id="" onChange={handleFilter}>
+            <option value="Recipes">Recipes</option>
+            <option value="Creators">Creators</option>
+          </select>
+        </section>
+
+        {searched === "" && <div className="scrollableList">
+          <section className="creatorsSection">
+            <h2 className='sectionName'>Popular Creators</h2>
+            <p className='sectionDescription'>Get inspired with recipe ideas and tips from your favorite food creators</p>
+            <div className='creators'>
+              {/* asta ii doar de test va trebui inlocuit cand va fi implementat */}
+              {creators.map((creator, index) => (
+                <div className='smallCreatorPreviewDemo' key={index}>
+                  <img src={creator.Img} alt="" />
+                  <p>{creator.Username}</p>
+                </div>
+              ))}
+              
+              
+            </div>
+          </section>
+          <section className="recipesHeaderSection">
+            <h2 className='sectionName'>Discover recipes</h2>
+            {/* <p className='sectionDescription'>Discover recipes from food creators around the world</p> */}
+          </section>
           {recipes.map((recipe, index) => (
             <RecipePreview
               key={index}
@@ -35,10 +88,35 @@ const ExplorePage = () => {
               User={recipe.User}
             />
           ))}
-        </div>
-        <button className="addButton" onClick={() => navigate("/addRecipe")}>
+        </div>}
+        {searched !== "" && <div className="scrollableList">
+          <section className="searchResults">
+            <h2 className='sectionName'>Search results for "{searched}"</h2>
+            {/* <p className='sectionDescription'>Discover recipes from food creators around the world</p> */}
+          </section>
+          {filter === "Recipes" && recipes.map((recipe, index) => (
+            <RecipePreview
+              key={index}
+              Id={recipe.Id}
+              Title={recipe.Title}
+              Img={recipe.Img}
+              IngredinetsNumber={Object.keys(recipe.Ingredinets).length}
+              PrepTime={recipe.PrepTime}
+              Rateing={recipe.Rateing}
+              isFavorite={recipe.isFavorite}
+              User={recipe.User}
+            />
+          ))}
+          {filter === "Creators" && creators.map((creator, index) => (
+            <div className='smallCreatorPreviewDemo' key={index}>
+              <img src={creator.Img} alt="" />
+              <p>{creator.Username}</p>
+            </div>
+          ))}
+        </div>}
+        {/* <button className="addButton" onClick={() => navigate("/addRecipe")}>
           <img src={addIcon} alt="" />
-        </button>
+        </button> */}
       </div>
     );
 };

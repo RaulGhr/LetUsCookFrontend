@@ -1,0 +1,28 @@
+.UserPreview {
+  width: 120px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  .imageContainer {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-color: #f0f0f0;
+    position: relative;
+    margin: 0 auto;
+    border: 2px solid #ccc;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .username {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    transition: color 0.2s;
+  }
+}

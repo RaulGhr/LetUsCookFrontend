@@ -8,6 +8,7 @@ import addIcon from "../../assets/icons/plus.png";
 import searchIcon from "../../assets/icons/search.png";
 import {getRecipesPreview} from '../../services/recipe.api';
 import {getCreatorsPreview} from '../../services/creators.api';
+import UserPreview from '../../components/UserPreview/UserPreview';
 
 
 const ExplorePage = () => {
@@ -60,12 +61,8 @@ const ExplorePage = () => {
             <h2 className='sectionName'>Popular Creators</h2>
             <p className='sectionDescription'>Get inspired with recipe ideas and tips from your favorite food creators</p>
             <div className='creators'>
-              {/* asta ii doar de test va trebui inlocuit cand va fi implementat */}
               {creators.map((creator, index) => (
-                <div className='smallCreatorPreviewDemo' key={index}>
-                  <img src={creator.Img} alt="" />
-                  <p>{creator.Username}</p>
-                </div>
+                <UserPreview key={creator.Id} Id={creator.Id} Username={creator.Username} Image={creator.Img} />
               ))}
               
               

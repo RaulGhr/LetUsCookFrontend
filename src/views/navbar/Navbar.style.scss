@@ -101,6 +101,17 @@
         .profile{
             margin-right: 0px;
         }
+
+        
+        .selected{
+            color: $accent-color;
+            height: 100%;
+            border-bottom: 4px solid $accent-color;
+            border-top: 4px solid transparent;
+        }
+
+        
+
         
     }
 }

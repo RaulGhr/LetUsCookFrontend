@@ -124,5 +124,36 @@
         }
       }
     }
+    .add-review {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    
+      textarea {
+        width: 50vw;
+        height: 80px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        resize: none;
+      }
+    
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+    
   }
   

@@ -72,3 +72,10 @@ export const getReviews = async () => {
 
   return reviewsDemo;
 };
+
+export const addReview = async (review) => {
+  // return withLogs(axios.post(`${baseUrl}/reviews`, review, config), 'addReview');
+
+  reviewsDemo.push(review);
+  return reviewsDemo;
+};

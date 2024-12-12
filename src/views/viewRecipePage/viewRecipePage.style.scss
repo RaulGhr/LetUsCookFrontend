@@ -1,13 +1,16 @@
 .ViewRecipePage {
   display: flex;
+
   height: 90vh;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 
 
+
   .recipe-container {
     display: flex;
+
     flex-direction: column;
     // justify-content: center;
     align-items: center;
@@ -16,10 +19,12 @@
     overflow-y: scroll;
     // gap: 40px; // Adjusted gap for a more balanced full-screen layout
 
+
     .recipe-description{
       width: 50vw;
       height: 60vh;
       display: flex;
+
       flex-direction: row;
 
       background-color: #fdfdfd;
@@ -35,8 +40,10 @@
           object-fit:cover;
           border-radius:  12px 0px 0px 12px;
 
+
         }
       }
+
 
       .right-column{
         display: flex;
@@ -85,8 +92,9 @@
           gap: 10px;
           padding: 10px;
           border-radius: 12px;
+
         }
-      }
+
 
       .instructions{
 
@@ -127,13 +135,13 @@
         border-left: 2px solid transparent;
         border-top: 2px solid transparent;
         border-radius: 10px;
+
     }
 
     
 
     
   }
-
 
   .reviews {
     display: flex;
@@ -151,4 +159,5 @@
     // margin-top: auto;
     // margin-bottom: auto;
   }
+
 }

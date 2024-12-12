@@ -80,11 +80,15 @@ const ViewRecipePage = () => {
               </div>
             </div>
 
+
+
             <div className="reviews">
               <Reviews recipeId={recipe.Id} />
             </div>
           </div>
+
           
+
         </div>
       )}
     </div>

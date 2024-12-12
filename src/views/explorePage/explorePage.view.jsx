@@ -9,6 +9,9 @@ import searchIcon from "../../assets/icons/search.png";
 import {getRecipesPreview} from '../../services/recipe.api';
 import {getCreatorsPreview} from '../../services/creators.api';
 import UserPreview from '../../components/UserPreview/UserPreview';
+import { useAuth } from '../../contexts/authContext';
+
+
 
 
 const ExplorePage = () => {
@@ -19,21 +22,30 @@ const ExplorePage = () => {
     const [filter, setFilter] = useState("Recipes");
     const navigate = useNavigate();
 
-    useEffect(() => {
-        handleSearch();
-    }, []);
+    const {token} = useAuth();
 
-    const handleSearch = () => {
+    useEffect(() => {
+      if(token){
+        handleSearch();
+      }
+    }, [token]);
+
+    const handleSearch = async() => {
         setSearched(search);
         if(search === ""){
-          getRecipesPreview(search).then(recipes => setRecipes(recipes));
-          getCreatorsPreview(search).then(creators => setCreators(creators));
+          const newRecipes = await getRecipesPreview(search,token);
+          setRecipes(newRecipes);
+          const newCreators = await getCreatorsPreview(search);
+          setCreators(newCreators);
+
           return;
         }
         if(filter === "Recipes"){
-            getRecipesPreview(search).then(recipes => setRecipes(recipes));
+          const newRecipes = await getRecipesPreview(search,token);
+          setRecipes(newRecipes);
         } else {
-            getCreatorsPreview(search).then(creators => setCreators(creators));
+          const newCreators = await getCreatorsPreview(search);
+          setCreators(newCreators);
         }
     };
 
@@ -62,7 +74,7 @@ const ExplorePage = () => {
             <p className='sectionDescription'>Get inspired with recipe ideas and tips from your favorite food creators</p>
             <div className='creators'>
               {creators.map((creator, index) => (
-                <UserPreview key={creator.Id} Id={creator.Id} Username={creator.Username} Image={creator.Img} />
+                <UserPreview key={creator.id} Id={creator.id} Username={creator.username} Image={creator.profileImage} />
               ))}
               
               
@@ -75,14 +87,14 @@ const ExplorePage = () => {
           {recipes.map((recipe, index) => (
             <RecipePreview
               key={index}
-              Id={recipe.Id}
-              Title={recipe.Title}
-              Img={recipe.Img}
-              IngredinetsNumber={Object.keys(recipe.Ingredinets).length}
-              PrepTime={recipe.PrepTime}
-              Rateing={recipe.Rateing}
+              Id={recipe.id}
+              Title={recipe.title}
+              Img={recipe.images}
+              IngredinetsNumber={Object.keys(recipe.ingredients).length}
+              PrepTime={recipe.prepTime}
+              Rateing={recipe.numberOfLikes}
               isFavorite={recipe.isFavorite}
-              User={recipe.User}
+              User={recipe.user}
             />
           ))}
         </div>}

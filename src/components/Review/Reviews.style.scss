@@ -8,7 +8,7 @@
     background-color: #fdfdfd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
-    padding: 20px;
+    // padding: 20px;
     overflow: hidden;
     position: relative;
   
@@ -23,7 +23,7 @@
       margin-bottom: 15px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
-      width: 100%;
+      width: 90%;
       
       p {
         margin: 0;
@@ -31,35 +31,37 @@
       }
   
       .feedback {
-        margin-top: 10px;
+        margin: 10px;
         display: flex;
         justify-content: space-between;
         font-size: 12px;
         color: #666;
     
-      }
-      .feedback span {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 14px;
-        color: #666;
+      
+        span {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 14px;
+          color: #666;
+
+          svg {
+            font-size: 18px;
+            color: #007bff; /* Culoarea implicită a iconiței */
+          }
+        }
+
+        .like svg {
+          color: #28a745; /* Verde pentru Like */
+        }
+
+        .dislike svg {
+          color: #dc3545; /* Roșu pentru Dislike */
+        }
+
       }
       
-      .feedback span svg {
-        font-size: 18px;
-        color: #007bff; /* Culoarea implicită a iconiței */
-      }
       
-      /* Stilizare pentru Like */
-      .feedback .like svg {
-        color: #28a745; /* Verde pentru Like */
-      }
-      
-      /* Stilizare pentru Dislike */
-      .feedback .dislike svg {
-        color: #dc3545; /* Roșu pentru Dislike */
-      }
       
     }
   
@@ -71,7 +73,7 @@
     .pagination {
       display: flex;
       justify-content: space-between;
-      width: 100%;
+      width: 90%;
       margin-top: 20px;
       font-size: 18px;
       color: #007bff;

@@ -32,14 +32,14 @@ const RecipePreview = ({
   isFavorite,
 }) => {
   const [isFav, setIsFav] = React.useState(isFavorite);
-  const { user } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
 
   const favoriteClickHandler = (e) => {
     e.stopPropagation();
     console.log("Favorite clicked", isFav);
     setIsFav(!isFav);
-    changeRecipeFavoriteStatus(Id, user.id, !isFav);
+    changeRecipeFavoriteStatus(Id, !isFav, token);
   };
 
   return (
@@ -51,7 +51,7 @@ const RecipePreview = ({
         <div className="buttons">
           <div className="likes">
             <img src={like_white} alt="" />
-            <p>{Rateing}%</p>
+            <p>{Rateing}</p>
           </div>
           {isFav ? (
             <img src={fav_selected} alt="" onClick={favoriteClickHandler} />
@@ -69,7 +69,7 @@ const RecipePreview = ({
       <p>
         {IngredinetsNumber} Ingredients | {PrepTime} Minutes
       </p>
-      <Reviews recipeId={Id} />
+      {/* <Reviews recipeId={Id} /> */}
     </div>
   );
 };

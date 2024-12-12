@@ -1,4 +1,5 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/authContext';
 
 import "./landingPage.style.scss";
 
@@ -6,8 +7,11 @@ import HeroSectionImage from "../../assets/images/HeroSection.png";
 
 
 const LandingPage = () => {
-
+    const { user } = useAuth();
+    console.log("in landing user",user);
     const navigate = useNavigate();
+    
+    
     return (
         <div className="LandingPage">
             <div className="leftPart">

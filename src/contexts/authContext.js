@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import { register as registerApi, login as loginApi, logout as logoutApi, getCurrentUser } from '../api/authApi';
+import React, { createContext, useContext,  useEffect, useState } from 'react';
+import { register as registerApi, login as loginApi, logout as logoutApi, getCurrentUser } from '../services/authApi';
 
 const AuthContext = createContext();
 
@@ -7,8 +7,30 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
-  console.log("user",user);
+  const [token, setToken] = useState();
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      setToken(token);
+    }
+  }, []);
+
+  useEffect(() => {
+    const setCuretnUser = async () => {
+      if (token) {
+        const user = await getCurrentUser(token);
+        console.log(user);
+        setUser(user);
+      }
+    }
+    setCuretnUser();
+
+
+  }, [token]);
+
+
 
   const register = async (username, email, password) => {
     setIsLoading(true);
@@ -16,7 +38,8 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(false);
 
     if (response.success) {
-      setUser(response.user);
+      setToken(response.token);
+      localStorage.setItem('jwt', response.token);
     }
     else {
       throw new Error(response.error);
@@ -29,7 +52,8 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(false);
 
     if (response.success) {
-      setUser(response.user);
+      setToken(response.token);
+      localStorage.setItem('jwt', response.token);
     }
     else {
       throw new Error(response.error);
@@ -37,6 +61,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    localStorage.removeItem('jwt');
     setIsLoading(true);
     await logoutApi();
     setIsLoading(false);
@@ -44,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, register, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, register, login, logout, token }}>
       {children}
     </AuthContext.Provider>
   );

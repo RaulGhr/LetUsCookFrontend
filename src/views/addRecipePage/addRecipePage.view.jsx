@@ -4,8 +4,10 @@ import React, { useEffect, useState, Fragment } from 'react';
 // import RecipePreview from '../../components/RecipePreview/RecipePreview.component';
 
 import "./addRecipePage.style.scss";
-// import addIcon from "../../assets/icons/plus.png";
+import add_image from "../../assets/icons/add_image.png";
 import {getIngredients, saveRecipe} from '../../services/recipe.api';
+
+import { useAuth } from '../../contexts/authContext';
 
 const defaultIngredientAdded = {
     name: 'default',
@@ -14,7 +16,7 @@ const defaultIngredientAdded = {
 
 const defaultRecipeFields = {
     title: '',
-    image: '',
+    images: '',
     description: '',
     ingredients: [],
     instructions: [],
@@ -30,9 +32,19 @@ const AddRecipePage = () => {
     const [recipeFields, setRecipeFields] = useState(defaultRecipeFields);
     const navigate = useNavigate();
 
-    console.log('ingredientsAdded',ingredientsAdded);
+    const { token } = useAuth();
+
     useEffect(() => {
-        getIngredients().then(ingredients => setIngredientsList(ingredients));
+        const getIngredientsRequest = async () => {
+            const ingredients = await getIngredients();
+            var ingredientsFormated = {};
+            ingredients.forEach(ingredient => {
+                ingredientsFormated[ingredient.name] = ingredient;
+            });
+            console.log('ingredients',ingredientsFormated);
+            setIngredientsList(ingredientsFormated);
+        }
+        getIngredientsRequest();
     }, []);
 
     const addIngredientHandler = (e,ingredientAddedIndex) => {
@@ -68,11 +80,22 @@ const AddRecipePage = () => {
         setInstructionsAdded(newInstructionsAdded);
     };
 
-    const addRecipeFieldsHandler = (e,field,sField=Node) => {
+    const addRecipeFieldsHandler = (e,field,sField=null) => {
         if (sField){
             const newRecipeFields = {...recipeFields};
             newRecipeFields[field] = {...newRecipeFields[field], [sField]: e.target.value};
             setRecipeFields(newRecipeFields);
+            return;
+        }
+        if (field == "image"){
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const newRecipeFields = {...recipeFields};
+                newRecipeFields[field] = reader.result;
+                setRecipeFields(newRecipeFields);
+            };
+            reader.readAsDataURL(file);
             return;
         }
         const newRecipeFields = {...recipeFields};
@@ -82,14 +105,24 @@ const AddRecipePage = () => {
 
     const saveRecipeHandler = () => {
         const newIngredientsAdded = ingredientsAdded.filter(ingredient => ingredient.name !== 'default');
+        for (let i = 0; i < newIngredientsAdded.length; i++){
+            newIngredientsAdded[i] = {
+                id: ingredientsList[newIngredientsAdded[i].name].id,
+                quantity: newIngredientsAdded[i].quantity
+            };
+        }
+        var intructionsNewForm = {};
         const newInstructionsAdded = instructionsAdded.filter(instruction => instruction !== '');
+        for (let i = 0; i < newInstructionsAdded.length; i++){
+            intructionsNewForm[i] = newInstructionsAdded[i];
+        }
 
         var recipe = {
             title: recipeFields.title,
-            image: recipeFields.image,
+            img: recipeFields.image,
             description: recipeFields.description,
             ingredients: newIngredientsAdded,
-            instructions: newInstructionsAdded,
+            instructions: intructionsNewForm,
             servings: recipeFields.servings,
             prepTime: recipeFields.prepTime.hours * 60 + recipeFields.prepTime.minutes,
             cookTime: recipeFields.cookTime.hours * 60 + recipeFields.cookTime.minutes
@@ -97,10 +130,13 @@ const AddRecipePage = () => {
 
         const saveRecipeRequest = async (recipe) => {
             console.log('recipe',recipe);
-            await saveRecipe(recipe); 
-            navigate('/explore');
+            const result = await saveRecipe(recipe, token); 
+            console.log('result SAVE Recipe',result);
+            // navigate('/explore');
         }
         saveRecipeRequest(recipe);
+
+        // console.log('save_recipe',recipe);
     };
 
     // const navigate = useNavigate();
@@ -108,6 +144,20 @@ const AddRecipePage = () => {
         <div className="AddRecipePage">
             <section className="recepiInformation">
                 <h1>Add Recipe</h1>
+                <div className='field image-field'>
+                        <input onChange={(e) => addRecipeFieldsHandler(e, 'image')} type="file" id="image" name="image" />
+                        <label htmlFor="image">
+                            { recipeFields.image?<img className='display_image' src={recipeFields.image} alt="" />:
+                                <Fragment>
+                                    <img className="add_image" src={add_image} alt="" />
+                                    <span>Upload Image</span>
+                                </Fragment>
+                            
+                            }
+                           
+                        </label>
+
+                </div>
                 <div className="field text-field">
                     <label htmlFor="title">Title</label>
                     <input onChange={(e) => addRecipeFieldsHandler(e,'title')} type="text" id="title" name="title" placeholder='Give your recipe a name' />
@@ -130,7 +180,7 @@ const AddRecipePage = () => {
                                     ))}
                                 </select>
                                 <input type="text" id="quantity" name="quantity" 
-                                placeholder={'Quantity' + (ingredientAdded['name']!='default'?' in ' + ingredientsList[ingredientAdded['name']]['MesureUnit']:'') } 
+                                placeholder={'Quantity' + (ingredientAdded['name']!='default'?' in ' + ingredientsList[ingredientAdded['name']]['measureUnit']:'') } 
                                 value={ingredientAdded['quantity']?(ingredientAdded['quantity']):''}
                                 onChange={(e) => {
                                     const newIngredientsAdded = [...ingredientsAdded];

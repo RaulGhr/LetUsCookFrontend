@@ -8,7 +8,6 @@ import AddRecipePage from './views/addRecipePage/addRecipePage.view';
 import Register from './views/authentification/Register.view';
 import Login from './views/authentification/Login.view';
 import ViewRecipePage from "./views/viewRecipePage/viewRecipePage.view";
-import ProfilePage from "./views/ProfilePage/ProfilePage";
 
 import { AuthProvider } from './contexts/authContext';
 import ProfilePage from './views/myProfilePage/myProfilePage.view';

@@ -43,27 +43,7 @@
             
             
         }
-        .text-field{
-            input[type="text"]{
-                padding: 7px;
-                border: 1px solid #909BAB;
-                border-radius: 5px;
-                margin-bottom: 10px;
-                background-color: transparent;
-                resize: vertical;
-
-            }
-
-            textarea{
-                padding: 7px;
-                border: 1px solid #909BAB;
-                border-radius: 5px;
-                margin-bottom: 10px;
-                background-color: transparent;
-                resize: vertical;
-                min-height: 20px;
-            }
-        }
+        
 
         .text-field{
             input[type="text"]{
@@ -103,6 +83,31 @@
                     background-color: transparent;
                     resize: vertical;
                 }
+            }
+        }
+
+        .image-field{
+            justify-content: center;
+            align-items: center;
+
+            .add_image{
+                height: 100px;
+                
+            }
+            
+            .display_image{
+                width: 90%;
+            }
+
+            input[type="file"]{
+                display: none;
+            }
+            label{
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
             }
         }
 

@@ -5,7 +5,8 @@ import RecipePreview from '../../components/RecipePreview/RecipePreview.componen
 
 import "./othersProfilePage.style.scss";
 import addIcon from "../../assets/icons/plus.png";
-import { getRecipesPreview, getUserData, followUser, unfollowUser } from '../../services/recipe.api';
+import { getRecipesPreview } from '../../services/recipe.api';
+import { getUserData, followUser, unfollowUser} from '../../services/creators.api';
 
 const OthersProfilePage = () => {
     const [recipes, setRecipes] = useState([]);

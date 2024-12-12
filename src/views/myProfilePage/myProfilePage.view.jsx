@@ -5,18 +5,27 @@ import RecipePreview from '../../components/RecipePreview/RecipePreview.componen
 
 import "./myProfilePage.style.scss";
 import addIcon from "../../assets/icons/plus.png";
-import { getRecipesPreview, getUserData } from '../../services/recipe.api';
+import { getRecipesPreview, getUserFavoritesRecipesPreview } from '../../services/recipe.api';
+import { getUserData } from '../../services/creators.api';
 
 const ProfilePage = () => {
     const [recipes, setRecipes] = useState([]);
     const [user, setUser] = useState(null);
+    const [displaySection, setDisplaySection] = useState("created");
     const navigate = useNavigate();
 
     useEffect(() => {
         getRecipesPreview().then(recipes => setRecipes(recipes));
-        
         getUserData().then(userData => setUser(userData));
     }, []);
+
+    useEffect(() => {
+        if (displaySection === "created") {
+            getRecipesPreview().then(recipes => setRecipes(recipes));
+        } else {
+          getUserFavoritesRecipesPreview().then(recipes => setRecipes(recipes));
+        }
+    },[displaySection]);
 
     if (!user) {
         return <div>Loading...</div>;
@@ -31,7 +40,7 @@ const ProfilePage = () => {
             src={user.ProfilePicture}
             alt="Profile"
             className="profilePicture"
-          />
+          /> 
           <div className="profileInfo">
             <h2>{user.Username}</h2>
             <p>{user.Description || "No description available"}</p>
@@ -43,8 +52,8 @@ const ProfilePage = () => {
         </div>
         
         <div className="tabMenu">
-          <button>Created</button>
-          <button onClick={() => navigate("/savedRecipes")}>Saved</button>
+          <button onClick={() => setDisplaySection("created")} className={displaySection==='created'?'selected':''}>Created</button>
+          <button onClick={() => setDisplaySection("saved")} className={displaySection==='saved'?'selected':''}>Saved</button>
         </div>
 
         <div className="recipeList">
@@ -56,6 +65,9 @@ const ProfilePage = () => {
               Img={recipe.Img}
               IngredinetsNumber={recipe.IngredinetsNumber}
               PrepTime={recipe.PrepTime}
+              Rateing={recipe.Rateing}
+              User={recipe.User}
+              isFavorite={recipe.isFavorite}
             />
           ))}
         </div>

@@ -1,7 +1,7 @@
 import { getLogger } from './debug.utils';
 const log = getLogger('api');
 
-export const baseUrl = 'localhost:3000';
+export const baseUrl = 'http://127.0.0.1:5000';
 
 export function withLogs(promise, fnName) {
     log(`${fnName} - started`);
@@ -21,3 +21,10 @@ export const config = {
       'Content-Type': 'application/json'
     }
 };
+
+export const authConfig = (token) => ({
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`,
+  }
+});

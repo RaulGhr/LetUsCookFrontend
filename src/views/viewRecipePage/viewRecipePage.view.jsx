@@ -3,30 +3,35 @@ import React, { useEffect, useState } from "react";
 import { getIngredients, getRecipeById } from "../../services/recipe.api";
 import viewRecipePage from "./viewRecipePage.style.scss";
 import Reviews from "../../components/Review/Reviews";
+import { useAuth } from "../../contexts/authContext";
+
 
 const ViewRecipePage = () => {
   const [recipe, setRecipe] = useState();
   // const [ingredients, setIngredients] = useState([]);
   const navigate = useNavigate();
-  console.log("recipes", recipe);
+  // console.log("recipes", recipe);
+  const { token } = useAuth();
 
   useEffect(() => {
     const getData = async () => {
       const path = window.location.pathname;
       const id = path.split("/").pop();
-      getRecipeById(id).then((recipes) => {
-        console.log(recipes);
-        setRecipe(recipes);
+      getRecipeById(id, token).then((recipeReq) => {
+        console.log(recipeReq);
+        setRecipe(recipeReq);
       });
       // getIngredients().then((ingredients) => setIngredients(ingredients));
     };
+    if(token){
+      getData();
+    }
+  }, [token]);
 
-    getData();
-  }, []);
+  if(!recipe){
+    return (<div>Loading...</div>);
+  }
 
-  //my recipe has id , userid, title ,images, description  , instructions,  servings , preptime ,cooktime
-
-  // const navigate = useNavigate();
   return (
     <div className="ViewRecipePage">
       {recipe && (
@@ -36,7 +41,7 @@ const ViewRecipePage = () => {
               {/* Left Column - Image */}
               <div className="left-column">
                 {/*  */}
-                <img src={recipe.Img} alt="Recipe" />
+                <img src={recipe.images} alt="Recipe" />
               </div>
               <dev className="right-column">
                 <div className="presentation">
@@ -44,9 +49,9 @@ const ViewRecipePage = () => {
                   <p className="description">{recipe.Description}</p>
                 </div>
                 <div className="time-and-servings">
-                  <p>Servings: {recipe.Servings}</p>
-                  <p>Prep: {recipe.PrepTime} min</p>
-                  <p>Cook: {recipe.CookTime} min</p>
+                  <p>Servings: {recipe.servings}</p>
+                  <p>Prep: {recipe.prepTime} min</p>
+                  <p>Cook: {recipe.cookTime} min</p>
                 </div>
               </dev>
             </div>
@@ -55,29 +60,35 @@ const ViewRecipePage = () => {
               <div className="ingredients">
                 <h2>Ingredients</h2>
                 <ul>
-                  {Object.keys(recipe.Ingredinets).map((key) => (
+                  {Object.keys(recipe.ingredients).map((key) => (
                     <div key={key}>
-                      {recipe.Ingredinets[key].Name}:{" "}
-                      {recipe.Ingredinets[key].Quantity}{" "}
-                      {recipe.Ingredinets[key].MesureUnit}
+                      {recipe.ingredients[key].ingredient.name}:{" "}
+                      {recipe.ingredients[key].quantity}{" "}
+                      {recipe.ingredients[key].ingredient.measureUnit}
                     </div>
                   ))}
                 </ul>
               </div>
               <div className="instructions">
                 <h2>Instructions</h2>
-                {Object.keys(recipe.Instructions).map((key) => (
+                {Object.keys(recipe.instructions).map((key) => (
                   <div key={key}>
                     <h3>Task {key}</h3>
-                    <p>{recipe.Instructions[key]}</p>
+                    <p>{recipe.instructions[key]}</p>
                   </div>
                 ))}
               </div>
             </div>
+
+
+
             <div className="reviews">
               <Reviews recipeId={recipe.Id} />
             </div>
           </div>
+
+          
+
         </div>
       )}
     </div>

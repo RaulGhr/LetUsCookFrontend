@@ -74,9 +74,9 @@ const ViewRecipePage = () => {
                 ))}
               </div>
             </div>
-          </div>
-          <div className="reviews">
-            <Reviews recipeId={recipe.Id} />
+            <div className="reviews">
+              <Reviews recipeId={recipe.Id} />
+            </div>
           </div>
         </div>
       )}

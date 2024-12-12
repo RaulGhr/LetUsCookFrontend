@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Reviews.style.scss";
-import { getReviews } from "../../services/review.api";
+import { getReviews, addReview } from "../../services/review.api";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
 const Reviews = ({ recipeId }) => {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [newReview, setNewReview] = useState(""); // Stochează textul review-ului nou
   const reviewsPerPage = 1; // Setează numărul de recenzii pe pagină
 
   useEffect(() => {
@@ -39,6 +40,28 @@ const Reviews = ({ recipeId }) => {
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // Adaugă un nou review
+  const handleAddReview = async () => {
+    if (!newReview.trim()) {
+      alert("Please enter a review!");
+      return;
+    }
+    try {
+      const newReviewData = {
+        RecipeId: recipeId.toString(),
+        UserId: localStorage.getItem("userId"),
+        Comment: newReview,
+        NoOfLikes: 0,
+        NoOfDislikes: 0,
+      };
+      await addReview(newReviewData); // Trimite review-ul către API
+      setReviews((prevReviews) => [...prevReviews, newReviewData]); // Actualizează lista locală
+      setNewReview(""); // Resetează câmpul formularului
+    } catch (error) {
+      console.error("Error adding review:", error);
     }
   };
 
@@ -86,6 +109,16 @@ const Reviews = ({ recipeId }) => {
         >
           &#8594;
         </span>
+      </div>
+
+      <div className="add-review">
+        <h4>Add a Review</h4>
+        <textarea
+          value={newReview}
+          onChange={(e) => setNewReview(e.target.value)}
+          placeholder="Write your review here..."
+        />
+        <button onClick={handleAddReview}>Submit</button>
       </div>
     </div>
   );

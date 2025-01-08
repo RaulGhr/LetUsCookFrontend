@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./Reviews.style.scss";
-import { getReviews, addReview } from "../../services/review.api";
+import { getReviews, addReview, likeReview, dislikeReview } from "../../services/review.api";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { useAuth } from "../../contexts/authContext";
 
 const Reviews = ({ recipeId }) => {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [newReview, setNewReview] = useState(""); // Stochează textul review-ului nou
+  const { token } = useAuth();
   const reviewsPerPage = 1; // Setează numărul de recenzii pe pagină
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const allReviews = await getReviews();
-        const filteredReviews = allReviews.filter(
-          (review) => review.RecipeId === recipeId.toString()
-        );
-        setReviews(filteredReviews);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-      }
-    };
 
+  const fetchReviews = async () => {
+    try {
+      const allReviews = await getReviews(recipeId);
+      setReviews(allReviews);
+      // setReviews(filteredReviews);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchReviews();
   }, [recipeId]);
 
@@ -50,37 +51,49 @@ const Reviews = ({ recipeId }) => {
       return;
     }
     try {
-      const newReviewData = {
-        RecipeId: recipeId.toString(),
-        UserId: localStorage.getItem("userId"),
-        Comment: newReview,
-        NoOfLikes: 0,
-        NoOfDislikes: 0,
-      };
-      await addReview(newReviewData); // Trimite review-ul către API
-      setReviews((prevReviews) => [...prevReviews, newReviewData]); // Actualizează lista locală
-      setNewReview(""); // Resetează câmpul formularului
+      await addReview(recipeId, newReview, token); 
+      await fetchReviews();
+
     } catch (error) {
       console.error("Error adding review:", error);
     }
   };
 
+  const handleLike = async (reviewId) => {
+    await likeReview(reviewId);
+    await fetchReviews();
+  };
+
+  const handleDislike = async (reviewId) => {
+    await dislikeReview(reviewId);
+    await fetchReviews();
+  }
+
   return (
     <div className="Reviews">
+      <div className="add-review">
+        <h4>Add a Review</h4>
+        <textarea
+          value={newReview}
+          onChange={(e) => setNewReview(e.target.value)}
+          placeholder="Write your review here..."
+        />
+        <button onClick={handleAddReview}>Submit</button>
+      </div>
       <h3>Reviews</h3>
       {reviews.length > 0 ? (
         currentReviews.map((review, index) => (
           <div key={index} className="review">
             <p>
-              <strong>User {review.UserId}</strong>
+              <strong>User {review.username}</strong>
             </p>
-            <p>{review.Comment}</p>
+            <p>{review.comment}</p>
             <div className="feedback">
-              <span className="like">
-                <FaThumbsUp /> {review.NoOfLikes}
+              <span className="like" onClick={()=>handleLike(review.id)}>
+                <FaThumbsUp /> {review.number_of_likes}
               </span>
-              <span className="dislike">
-                <FaThumbsDown /> {review.NoOfDislikes}
+              <span className="dislike" onClick={()=>handleDislike(review.id)}>
+                <FaThumbsDown /> {review.number_of_dislikes}
               </span>
             </div>
           </div>
@@ -111,15 +124,7 @@ const Reviews = ({ recipeId }) => {
         </span>
       </div>
 
-      <div className="add-review">
-        <h4>Add a Review</h4>
-        <textarea
-          value={newReview}
-          onChange={(e) => setNewReview(e.target.value)}
-          placeholder="Write your review here..."
-        />
-        <button onClick={handleAddReview}>Submit</button>
-      </div>
+      
     </div>
   );
 };

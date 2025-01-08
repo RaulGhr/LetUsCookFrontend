@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RecipePreview.style.scss";
 
@@ -41,6 +41,10 @@ const RecipePreview = ({
     setIsFav(!isFav);
     changeRecipeFavoriteStatus(Id, !isFav, token);
   };
+
+  useEffect(() => {
+    setIsFav(isFavorite);
+  }, [isFavorite]);
 
   return (
     <div className="RecipePreview" onClick={() => navigate("/explore/" + Id)}>

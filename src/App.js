@@ -26,7 +26,7 @@ function App() {
             <Route path="/addRecipe" element={<AddRecipePage />} />
             <Route path="/explore/:id" element={<ViewRecipePage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/profile/1" element={<OthersProfilePage/>} />
+            <Route path="/users/:username" element={<OthersProfilePage/>} />
             <Route path="*" element={<Navigate to="/" />} />
           </Route>
         </Routes>

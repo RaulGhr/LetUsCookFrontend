@@ -132,7 +132,7 @@ const AddRecipePage = () => {
             console.log('recipe',recipe);
             const result = await saveRecipe(recipe, token); 
             console.log('result SAVE Recipe',result);
-            // navigate('/explore');
+            navigate('/explore');
         }
         saveRecipeRequest(recipe);
 

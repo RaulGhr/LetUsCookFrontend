@@ -45,6 +45,7 @@ const ExplorePage = () => {
           setRecipes(newRecipes);
         } else {
           const newCreators = await getCreatorsPreview(search);
+          console.log(newCreators);
           setCreators(newCreators);
         }
     };
@@ -106,21 +107,22 @@ const ExplorePage = () => {
           {filter === "Recipes" && recipes.map((recipe, index) => (
             <RecipePreview
               key={index}
-              Id={recipe.Id}
-              Title={recipe.Title}
-              Img={recipe.Img}
-              IngredinetsNumber={Object.keys(recipe.Ingredinets).length}
-              PrepTime={recipe.PrepTime}
-              Rateing={recipe.Rateing}
+              Id={recipe.id}
+              Title={recipe.title}
+              Img={recipe.images}
+              IngredinetsNumber={Object.keys(recipe.ingredients).length}
+              PrepTime={recipe.prepTime}
+              Rateing={recipe.numberOfLikes}
               isFavorite={recipe.isFavorite}
-              User={recipe.User}
+              User={recipe.user}
             />
           ))}
           {filter === "Creators" && creators.map((creator, index) => (
-            <div className='smallCreatorPreviewDemo' key={index}>
-              <img src={creator.Img} alt="" />
-              <p>{creator.Username}</p>
-            </div>
+            // <div className='smallCreatorPreviewDemo' key={index}>
+            //   <img src={creator.profileImage} alt="" />
+            //   <p>{creator.username}</p>
+            // </div>
+            <UserPreview key={creator.id} Id={creator.id} Username={creator.username} Image={creator.profileImage} />
           ))}
         </div>}
         {/* <button className="addButton" onClick={() => navigate("/addRecipe")}>

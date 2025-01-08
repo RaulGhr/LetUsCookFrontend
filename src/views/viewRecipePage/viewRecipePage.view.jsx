@@ -45,8 +45,8 @@ const ViewRecipePage = () => {
               </div>
               <dev className="right-column">
                 <div className="presentation">
-                  <h1>{recipe.Title}</h1>
-                  <p className="description">{recipe.Description}</p>
+                  <h1>{recipe.title}</h1>
+                  <p className="description">{recipe.description}</p>
                 </div>
                 <div className="time-and-servings">
                   <p>Servings: {recipe.servings}</p>
@@ -83,7 +83,7 @@ const ViewRecipePage = () => {
 
 
             <div className="reviews">
-              <Reviews recipeId={recipe.Id} />
+              <Reviews recipeId={recipe.id} />
             </div>
           </div>
 

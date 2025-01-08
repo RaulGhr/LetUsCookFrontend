@@ -1,81 +1,24 @@
 import axios from "axios";
-import { withLogs, baseUrl, config } from "../utils/api.utils";
+import { withLogs, baseUrl, config, authConfig } from "../utils/api.utils";
 
-var reviewsDemo = [
-  {
-    RecipeId: "1",
-    UserId: "1",
-    Comment: "This is a great recipe",
-    NoOfLikes: 10,
-    NoOfDislikes: 2,
-  },
-  {
-    RecipeId: "1",
-    UserId: "2",
-    Comment: "I don't like this recipe",
-    NoOfLikes: 2,
-    NoOfDislikes: 10,
-  },
-  {
-    RecipeId: "1",
-    UserId: "3",
-    Comment: "I would make this recipe again",
-    NoOfLikes: 5,
-    NoOfDislikes: 0,
-  },
-  {
-    RecipeId: "1",
-    UserId: "1",
-    Comment: "This is a great recipe",
-    NoOfLikes: 10,
-    NoOfDislikes: 2,
-  },
-  {
-    RecipeId: "1",
-    UserId: "2",
-    Comment: "I don't like this recipe",
-    NoOfLikes: 2,
-    NoOfDislikes: 10,
-  },
-  {
-    RecipeId: "1",
-    UserId: "3",
-    Comment: "I would make this recipe again",
-    NoOfLikes: 5,
-    NoOfDislikes: 0,
-  },
-  {
-    RecipeId: "1",
-    UserId: "1",
-    Comment: "This is a great recipe",
-    NoOfLikes: 10,
-    NoOfDislikes: 2,
-  },
-  {
-    RecipeId: "1",
-    UserId: "2",
-    Comment: "I don't like this recipe",
-    NoOfLikes: 2,
-    NoOfDislikes: 10,
-  },
-  {
-    RecipeId: "1",
-    UserId: "3",
-    Comment: "I would make this recipe again",
-    NoOfLikes: 5,
-    NoOfDislikes: 0,
-  },
-];
 
-export const getReviews = async () => {
-  // return withLogs(axios.get(`${baseUrl}/reviews`), 'getReviews');
-
-  return reviewsDemo;
+export const getReviews = async (recipeId) => {
+  const response = await axios.get(`${baseUrl}/reviews/getByRecipe?recipe_id=${recipeId}`, config);
+  return response.data;
 };
 
-export const addReview = async (review) => {
-  // return withLogs(axios.post(`${baseUrl}/reviews`, review, config), 'addReview');
-
-  reviewsDemo.push(review);
-  return reviewsDemo;
+export const addReview = async (recipeId, comment, token) => {
+  const response = await axios.post(`${baseUrl}/reviews/create`, { "recipe_id": recipeId, "comment": comment }, authConfig(token));
+  return response.data;
+  
 };
+
+export const likeReview = async (reviewId) => {
+  const response = await axios.put(`${baseUrl}/reviews/like`, { "review_id": reviewId }, config);
+  return response.data;
+}
+
+export const dislikeReview = async (reviewId) => {
+  const response = await axios.put(`${baseUrl}/reviews/dislike`, { "review_id": reviewId }, config);
+  return response.data;
+}

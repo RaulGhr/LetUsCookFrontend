@@ -12,6 +12,19 @@
       width: 100%;
       max-width: 900px;
       margin-bottom: 20px;
+
+      input{
+        display: none;
+      }
+      label{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 100px;
+        
+      }
   
       .profilePicture {
         width: 100px;
@@ -86,6 +99,31 @@
     .addButton {
       position: fixed;
       bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #e94e33;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  
+      img {
+        width: 30px;
+        height: 30px;
+      }
+  
+      &:hover {
+        background-color: #d23c2d;
+      }
+    }
+
+    .logOutButton {
+      position: fixed;
+      bottom: 100px;
       right: 20px;
       width: 60px;
       height: 60px;

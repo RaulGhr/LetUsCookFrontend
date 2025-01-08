@@ -2,6 +2,7 @@ import { getLogger } from './debug.utils';
 const log = getLogger('api');
 
 export const baseUrl = 'http://127.0.0.1:5000';
+// export const baseUrl = 'http://188.27.128.61:5000';
 
 export function withLogs(promise, fnName) {
     log(`${fnName} - started`);

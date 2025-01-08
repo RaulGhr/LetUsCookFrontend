@@ -6,7 +6,7 @@ const UserPreview = ({ Id, Username, Image }) => {
 
 
   return (
-    <div className="UserPreview" onClick={() => navigate(`/users?Id=${Id}`)}>
+    <div className="UserPreview" onClick={() => navigate(`/users/${Username}`)}>
       <div className="imageContainer" style={{ backgroundImage: `url(${Image})` }}>
         <div className="overlay"></div>
       </div>

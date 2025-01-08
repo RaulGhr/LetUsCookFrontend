@@ -57,6 +57,26 @@ export const logout = async () => {
   return { success: true };
 };
 
+export const updateUser = async (newUser) => {
+  
+    console.log("in update",newUser);
+    const response = await axios.put(`${baseUrl}/users/update_user/${newUser.id}`, newUser, config).then(response => {
+      return response;
+    }).catch(error => {
+      console.log(error.response);
+      return error.response;
+    });
+  
+    console.log(response);
+    const code = response.status;
+    if (code == 200) {
+      return response.data;
+    }
+    else {
+      return null;
+    }
+};
+
 export const getCurrentUser = async (token) => {
 
   const config = authConfig(token);

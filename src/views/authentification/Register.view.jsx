@@ -31,7 +31,7 @@ const Register = () => {
   
     try {
       await register(username, email, password);
-      navigate('/');
+      navigate('/explore');
     } catch (err) {
       setError('Registration failed. Please try again.');
     }

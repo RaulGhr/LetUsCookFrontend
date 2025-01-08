@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     localStorage.removeItem('jwt');
     setIsLoading(true);
-    await logoutApi();
+    // await logoutApi();
     setIsLoading(false);
     setUser(null);
   };

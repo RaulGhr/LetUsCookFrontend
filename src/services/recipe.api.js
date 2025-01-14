@@ -73,7 +73,6 @@ export const getRecipeByUserId = async (userId, token) => {
 };
 
 export const getFollowingUsersRecipes = async (token) => {
-  // console.log("getFollowingUsersRecipes",token);
   const result = await axios.get(`${baseUrl}/recipes/getFollowingUsersRecipes`, authConfig(token)).then((response) => {
     return response;
   }).catch((error) => {

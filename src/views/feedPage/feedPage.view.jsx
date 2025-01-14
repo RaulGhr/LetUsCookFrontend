@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/authContext";
 import { getFollowingUsersRecipes } from "../../services/recipe.api";
-import { ReactComponent as LikeIcon } from "../../assets/icons/like_icon.svg";
 import "./feedPage.style.scss";
-import HeartButton from "../../components/HeartButton";
+import BigRecipePreview from "../../components/RecipePreview/BigRecipePreview.component";
+
 // TODO: Replace with actual data from the API
 const hardcodedRecipes = [
   {
@@ -63,31 +63,13 @@ const FeedPage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  // If like button is clicked, fill it with red and increase the number of likes
-
   return (
     <div className="feed-container">
       {recipes.length === 0 ? (
         <div>Loading...</div>
       ) : (
         recipes.map((recipe) => (
-          <div key={recipe.id} className="feed-card">
-            <div className="user-info">
-              <img
-                src={recipe.user.profilePicture}
-                alt={`${recipe.user.name}'s profile`}
-                className="profile-pic"
-              />
-              <span className="username">{recipe.user.name}</span>
-            </div>
-            <div className="recipe-image">
-              <img src={recipe.images[0]} alt={recipe.title} />
-            </div>
-            <div className="interaction-bar">
-              <span className="likes"><LikeIcon />{recipe.numberOfLikes}</span>
-              <HeartButton />
-            </div>
-          </div>
+          <BigRecipePreview key={recipe.id} recipe={recipe} />
         ))
       )}
     </div>

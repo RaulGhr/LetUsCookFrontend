@@ -1,0 +1,121 @@
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #eaeaea;
+}
+
+.shopping-list-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  gap: 20px;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.recipes-list {
+  flex: 0.4;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.shopping-list {
+  flex: 0.6;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.recipes-list h2,
+.shopping-list h2 {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.recipes-scroll,
+.ingredients-scroll {
+  height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.recipes-scroll::-webkit-scrollbar,
+.ingredients-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.recipes-scroll::-webkit-scrollbar-track,
+.ingredients-scroll::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 6px;
+}
+
+.recipes-scroll::-webkit-scrollbar-thumb,
+.ingredients-scroll::-webkit-scrollbar-thumb {
+  background-color: #c0c0c0;
+  border-radius: 6px;
+}
+
+.recipe-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #d9d9d9;
+  margin-bottom: 20px;
+  position: relative;
+  height: 120px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-name {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.recipe-card .remove-button {
+  background: none;
+  border: none;
+  color: #ff4c4c;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.recipe-card .remove-button:hover {
+  color: #ff0000;
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.ingredient-item input {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.ingredient-item span {
+  font-size: 18px;
+}

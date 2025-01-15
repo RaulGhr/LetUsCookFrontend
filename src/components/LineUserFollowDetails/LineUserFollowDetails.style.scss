@@ -1,0 +1,28 @@
+.LineUserFollowDetails{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    img{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    h3{
+      margin: 0;
+      font-size: 15px;
+      text-align: center;
+      // width: 100px;
+    }
+    button{
+      // background: none;
+      // border: none;
+      // cursor: pointer;
+      // color: #e94e33;
+      font-size: 14px;
+      padding: 3px;
+      // border: 1px solid red;
+      align-self: center;
+    }
+  }

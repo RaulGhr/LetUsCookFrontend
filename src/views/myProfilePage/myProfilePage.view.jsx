@@ -2,17 +2,20 @@ import { Outlet, Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 import RecipePreview from '../../components/RecipePreview/RecipePreview.component';
+import LineUserFollowDetails from '../../components/LineUserFollowDetails/LineUserFollowDetails.component';
 
 import "./myProfilePage.style.scss";
 import addIcon from "../../assets/icons/plus.png";
 import logoutIcon from "../../assets/icons/logout.png";
 import { getRecipesPreview, getUserFavoritesRecipesPreview, getRecipeForCurrentUser } from '../../services/recipe.api';
 import {updateUser} from '../../services/authApi';
-import { getUserData } from '../../services/creators.api';
+import { getUserData, getFollowers, getFollowing } from '../../services/creators.api';
 import { useAuth } from '../../contexts/authContext';
 
 const ProfilePage = () => {
     const [recipes, setRecipes] = useState([]);
+    const [folloingList, setFolloingList] = useState([]);
+    const [folloersList, setFolloersList] = useState([]);
     const [user, setUser] = useState(null);
     const [displaySection, setDisplaySection] = useState("created");
     const userContext = useAuth().user;
@@ -44,6 +47,17 @@ const ProfilePage = () => {
         setRecipes(recipes);
     };
 
+    const fetchFollowing = async () => {
+        const following = await getFollowing(userContext.id);
+        setFolloingList(following);
+    };
+
+    const fetchFollowers = async () => {
+        const followers = await getFollowers(userContext.id);
+        setFolloersList(followers);
+    };
+
+
     const changeProfilePicture = async (e) => {
       
 
@@ -68,6 +82,8 @@ const ProfilePage = () => {
         const fetchData = async () => {
             await fetchUser();
             await fetchRecipes();
+            await fetchFollowing();
+            await fetchFollowers();
         };
         if(userContext){
           fetchData();
@@ -108,8 +124,19 @@ const ProfilePage = () => {
             <h2>{user.Username}</h2>
             <p>{user.Description || "No description available"}</p>
             <div className="followStats">
-              <span>{user.FollowingCount} Following</span>
-              <span>{user.FollowersCount} Followers</span>
+              <div className='dropdown'>
+                <span>{user.FollowingCount} Following</span>
+                <div className="dropdownContent">
+                  {folloingList.map((user, index) => <LineUserFollowDetails key={index} user={user} onButtonClick={() => fetchFollowing()}/>)}
+                </div>
+              </div>
+              <div className='dropdown'>
+                <span>{user.FollowersCount} Followers</span>
+                <div className="dropdownContent followers">
+                  {folloersList.map((user, index) => <LineUserFollowDetails key={index} user={user}/>)}
+                </div>
+              </div>
+              
             </div>
           </div>
         </div>

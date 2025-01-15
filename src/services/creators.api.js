@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {withLogs, baseUrl, config, authConfig} from '../utils/api.utils';
 
+var demoUser = {}
 
 export const getCreatorsPreview = async (search) => {
 
@@ -24,6 +25,19 @@ export const getUserPreview = async (user_id) => {
 export const getFollowingCount = async (user_id) => {
     const response = await axios.get(`${baseUrl}/user_follows/following_count/${user_id}`, config);
     return response.data.following_count;
+}
+
+export const getFollowing = async (user_id) => {
+    // const response = await axios.get(`${baseUrl}/user_follows/following/${user_id}`, config);
+    // return response.data.following_count;
+    return [demoUser, demoUser, demoUser, demoUser];
+
+}
+
+export const getFollowers = async (user_id) => {
+    // const response = await axios.get(`${baseUrl}/user_follows/followers/${user_id}`, config);
+    // return response.data.follower_count;
+    return [demoUser, demoUser, demoUser];
 }
   
   // avem endpoint de pe back cu followers count
@@ -66,6 +80,7 @@ export const getUserData = async (user_id = null, username= null) => {
         FollowingCount: followingCount,
     };
 
+    demoUser = user;
     return user;
 };
 

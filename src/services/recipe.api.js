@@ -1,31 +1,33 @@
 import axios from 'axios';
-import {withLogs, baseUrl, config, authConfig} from '../utils/api.utils';
+import { withLogs, baseUrl, config, authConfig } from '../utils/api.utils';
 
 
 
-export const getRecipesPreview = async (title,token) => {
+export const getRecipesPreview = async (title, token) => {
   // console.log("getRecipesPreview",search,token);
 
-  if(!token){
+  if (!token) {
     return [];
   }
-  const result = await axios.get(`${baseUrl}/recipes?title=${title}`,authConfig(token)).then((response) => {
+  const result = await axios.get(`${baseUrl}/recipes?title=${title}`, authConfig(token)).then((response) => {
     return response;
   }).catch((error) => {
     return error;
   });
-  console.log("getRecipesPreview-Result",result);
+  console.log("getRecipesPreview-Result", result);
   if (result.status === 200) {
     return result.data;
   } else {
     return [];
   }
 
-  
+
 };
 
 export const getUserFavoritesRecipesPreview = async (token) => {
-  const result = await axios.get(`${baseUrl}/recipes/favorite`,authConfig(token)).then((response) => {
+
+  console.log(authConfig(token))
+  const result = await axios.get(`${baseUrl}/recipes/favorite`, authConfig(token)).then((response) => {
     return response;
   }).catch((error) => {
     return error;
@@ -42,7 +44,7 @@ export const getUserFavoritesRecipesPreview = async (token) => {
 
 export const getRecipeForCurrentUser = async (token) => {
   // console.log("getRecipeForUser",token);
-  const result = await axios.get(`${baseUrl}/recipes/getAllForCurrentUser`,authConfig(token)).then((response) => {
+  const result = await axios.get(`${baseUrl}/recipes/getAllForCurrentUser`, authConfig(token)).then((response) => {
     return response;
   }).catch((error) => {
     return error;
@@ -57,7 +59,7 @@ export const getRecipeForCurrentUser = async (token) => {
 
 export const getRecipeByUserId = async (userId, token) => {
   // console.log("getRecipeByUserId",userId, token);
-  const result = await axios.get(`${baseUrl}/recipes/getAllById?user_id=${userId}`,authConfig(token)).then((response) => {
+  const result = await axios.get(`${baseUrl}/recipes/getAllById?user_id=${userId}`, authConfig(token)).then((response) => {
     return response;
   }).catch((error) => {
     return error;
@@ -69,6 +71,21 @@ export const getRecipeByUserId = async (userId, token) => {
     return [];
   }
 };
+
+export const getFollowingUsersRecipes = async (token) => {
+  const result = await axios.get(`${baseUrl}/recipes/getFollowingUsersRecipes`, authConfig(token)).then((response) => {
+    return response;
+  }).catch((error) => {
+    return error;
+  });
+
+  if (result.status === 200) {
+    return result.data;
+  } else {
+    return [];
+  }
+};
+
 
 export const getIngredients = async () => {
   const result = await axios.get(`${baseUrl}/ingredients/getAll`);
@@ -90,41 +107,41 @@ export const getRecipeById = async (id, token) => {
     return result;
   }
 };
-  
+
 export const saveRecipe = async (recipe, token) => {
-    const result = await axios.post(`${baseUrl}/recipes/create`, recipe,authConfig(token)).then((response) => {
-      return response;
-    }).catch((error) => {
-      return error;
-    });
+  const result = await axios.post(`${baseUrl}/recipes/create`, recipe, authConfig(token)).then((response) => {
+    return response;
+  }).catch((error) => {
+    return error;
+  });
 
-    if (result.status === 200) {
-      return result.data;
-    } else {
-      return result;
-    }
+  if (result.status === 200) {
+    return result.data;
+  } else {
+    return result;
+  }
 
-    
+
 }
 
 export const changeRecipeFavoriteStatus = async (recipeId, status, token) => {
 
   // console.log("changeRecipeFavoriteStatus",recipeId, status, token);
 
-  if(status == true){
-  
-    const result = await axios.post(`${baseUrl}/favorite_recipes/create`, { 'recipe_id':recipeId },authConfig(token)).then((response) => {
-        return response;
-      }).catch((error) => {
-        return error;
-      });
+  if (status == true) {
+
+    const result = await axios.post(`${baseUrl}/favorite_recipes/create`, { 'recipe_id': recipeId }, authConfig(token)).then((response) => {
+      return response;
+    }).catch((error) => {
+      return error;
+    });
     if (result.status === 200) {
       return result.data;
     } else {
       return result;
     }
-  }else{
-    const result = await axios.post(`${baseUrl}/favorite_recipes/delete`,{ 'recipe_id':recipeId },authConfig(token)).then((response) => {
+  } else {
+    const result = await axios.post(`${baseUrl}/favorite_recipes/delete`, { 'recipe_id': recipeId }, authConfig(token)).then((response) => {
       return response;
     }).catch((error) => {
       return error;

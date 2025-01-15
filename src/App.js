@@ -12,6 +12,7 @@ import { AuthProvider } from "./contexts/authContext";
 import ProfilePage from "./views/myProfilePage/myProfilePage.view";
 import OthersProfilePage from "./views/othersProfilePage/othersProfilePage.view";
 import ShoppingList from "./views/ShoppingList/ShoppingList";
+import FeedPage from "./views/feedPage/feedPage.view";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navbar />}>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/feed" element={<FeedPage />} />
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

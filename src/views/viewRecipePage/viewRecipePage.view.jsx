@@ -1,13 +1,19 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+
 import { getIngredients, getRecipeById } from "../../services/recipe.api";
+import { addRecipeToShoppingList, deleteRecipeFromShoppingList } from "../../services/shoppingList.api";
 import viewRecipePage from "./viewRecipePage.style.scss";
+
 import Reviews from "../../components/Review/Reviews";
 import { useAuth } from "../../contexts/authContext";
+import addToCartIcon  from "../../assets/icons/add-to-cart.png";
+import removeFromCartIcon  from "../../assets/icons/remove-from-cart.png";
 
 
 const ViewRecipePage = () => {
   const [recipe, setRecipe] = useState();
+  const [isInShoppingList, setIsInShoppingList] = useState(false);
   // const [ingredients, setIngredients] = useState([]);
   const navigate = useNavigate();
   // console.log("recipes", recipe);
@@ -20,6 +26,7 @@ const ViewRecipePage = () => {
       getRecipeById(id, token).then((recipeReq) => {
         console.log(recipeReq);
         setRecipe(recipeReq);
+        setIsInShoppingList(recipeReq.isInShoppingList);
       });
       // getIngredients().then((ingredients) => setIngredients(ingredients));
     };
@@ -27,6 +34,16 @@ const ViewRecipePage = () => {
       getData();
     }
   }, [token]);
+
+  const shoppingListHandler = async () => {
+    if(isInShoppingList){
+      setIsInShoppingList(false);
+      await deleteRecipeFromShoppingList(recipe.id, token);
+    } else {
+      setIsInShoppingList(true);
+      await addRecipeToShoppingList(recipe.id, token);
+    }
+  };
 
   if(!recipe){
     return (<div>Loading...</div>);
@@ -45,7 +62,18 @@ const ViewRecipePage = () => {
               </div>
               <dev className="right-column">
                 <div className="presentation">
-                  <h1>{recipe.title}</h1>
+                  <div className="title_bar">
+                    <h1>{recipe.title}</h1>
+                    {isInShoppingList ? 
+                    <button onClick={shoppingListHandler}>
+                      <img src={removeFromCartIcon} alt="" />
+                    </button>
+                    :
+                    <button onClick={shoppingListHandler}>
+                      <img src={addToCartIcon} alt="" />
+                    </button>
+                    } 
+                  </div>
                   <p className="description">{recipe.description}</p>
                 </div>
                 <div className="time-and-servings">

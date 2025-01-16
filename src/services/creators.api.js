@@ -27,17 +27,17 @@ export const getFollowingCount = async (user_id) => {
     return response.data.following_count;
 }
 
-export const getFollowing = async (user_id) => {
-    // const response = await axios.get(`${baseUrl}/user_follows/following/${user_id}`, config);
-    // return response.data.following_count;
+export const getFollowing = async (token) => {
+    const response = await axios.get(`${baseUrl}/user_follows/following`, authConfig(token));
+    return response.data;
     return [demoUser, demoUser, demoUser, demoUser];
 
 }
 
-export const getFollowers = async (user_id) => {
-    // const response = await axios.get(`${baseUrl}/user_follows/followers/${user_id}`, config);
-    // return response.data.follower_count;
-    return [demoUser, demoUser, demoUser];
+export const getFollowers = async (token) => {
+    const response = await axios.get(`${baseUrl}/user_follows/followers`, authConfig(token));
+    return response.data;
+    // return [demoUser, demoUser, demoUser];
 }
   
   // avem endpoint de pe back cu followers count

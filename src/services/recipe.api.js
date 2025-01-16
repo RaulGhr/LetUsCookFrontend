@@ -154,3 +154,38 @@ export const changeRecipeFavoriteStatus = async (recipeId, status, token) => {
   }
 
 };
+
+export const likeRecipe = async (recipeId, token) => {
+  // console.log("likeRecipe", recipeId, token);
+  const body_data = {
+    "recipe_id": recipeId
+  }
+  const result = await axios.post(`${baseUrl}/recipes/like`, body_data, authConfig(token)).then((response) => {
+    return response;
+  }).catch((error) => {
+    return error;
+  });
+
+  if (result.status === 200) {
+    return result.data;
+  } else {
+    return result;
+  }
+}
+
+export const dislikeRecipe = async (recipeId, token) => {
+  const body_data = {
+    "recipe_id": recipeId
+  }
+  const result = await axios.post(`${baseUrl}/recipes/dislike`, body_data, authConfig(token)).then((response) => {
+    return response;
+  }).catch((error) => {
+    return error;
+  });
+
+  if (result.status === 200) {
+    return result.data;
+  } else {
+    return result;
+  }
+}

@@ -10,6 +10,8 @@ const Navbar = () => {
     const [currentPath, setCurrentPath] = useState('explore');
     const navigate = useNavigate();
 
+    console.log("currentPath", currentPath);
+
     const { logout, user } = useAuth();
     const handlerSelectedSection = (section) => {
         setCurrentPath(section);
@@ -56,11 +58,11 @@ const Navbar = () => {
                             onClick={() => handlerSelectedSection('explore')}>
                                 Explore
                         </button>
-                        <button 
+                        {/* <button 
                             className={'planner' + (currentPath=='planner'?' selected':'')}
                             onClick={() => handlerSelectedSection('planner')}>
                                 Planner
-                        </button>
+                        </button> */}
                         <button 
                             className={'shoppingList' + (currentPath=='shoppingList'?' selected':'')}
                             onClick={() => handlerSelectedSection('shoppingList')}>

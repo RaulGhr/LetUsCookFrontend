@@ -95,6 +95,7 @@ const ExplorePage = () => {
               PrepTime={recipe.prepTime}
               Rateing={recipe.numberOfLikes}
               isFavorite={recipe.isFavorite}
+              isLiked={recipe.isLiked}
               User={recipe.user}
             />
           ))}

@@ -1,47 +1,65 @@
-import React, { useState } from "react";
-import "./ShoppingList.css";
+import React, { useState, useEffect } from "react";
+
+import "./ShoppingList.scss";
+
+import { getShoppingList, deleteRecipeFromShoppingList } from "../../services/shoppingList.api";
+
+import { useAuth } from "../../contexts/authContext";
+
+
+
 
 const ShoppingList = () => {
-  const [recipes, setRecipes] = useState([
-    "Reteta 1",
-    "Reteta 2",
-    "Reteta 3",
-    "Reteta 4",
-    "Reteta 5",
-  ]);
-  const [ingredients, setIngredients] = useState([
-    { name: "Ingredient 1", checked: true },
-    { name: "Ingredient 2", checked: true },
-    { name: "Ingredient 3", checked: false },
-    { name: "Ingredient 4", checked: false },
-    { name: "Ingredient 5", checked: false },
-    { name: "Ingredient 6", checked: true },
-    { name: "Ingredient 7", checked: true },
-    { name: "Ingredient 8", checked: false },
-    { name: "Ingredient 9", checked: false },
-    { name: "Ingredient 10", checked: false },
-  ]);
+  const { token } = useAuth();
+  const [recipes, setRecipes] = useState();
+  const [ingredients, setIngredients] = useState({});
+  
 
-  const toggleIngredient = (index) => {
-    const updatedIngredients = ingredients.map((ingredient, i) =>
-      i === index ? { ...ingredient, checked: !ingredient.checked } : ingredient
-    );
+  console.log("ingredients", ingredients);
+  console.log("recipes", recipes);
+
+  const fetchShoppingList = async () => {
+    const shoppingList = await getShoppingList(token);
+    console.log("shoppingList", shoppingList)
+    
+    Object.keys(shoppingList.ingredients).forEach((key) => {
+      shoppingList.ingredients[key]["checked"] = false;
+    })
+    setRecipes(shoppingList.recipes);
+    setIngredients(shoppingList.ingredients);
+  }
+
+  useEffect(() => {
+    if(token){
+      fetchShoppingList();
+    }
+  }, [token]);
+
+  const toggleIngredient = (selected_key) => {
+    const updatedIngredients = { ...ingredients };
+    updatedIngredients[selected_key].checked = !updatedIngredients[selected_key].checked;
     setIngredients(updatedIngredients);
   };
 
-  const removeRecipe = (index) => {
-    setRecipes(recipes.filter((_, i) => i !== index));
+  
+  const removeRecipe = async (index) => {
+    // console.log("removeRecipe", index);
+    // setRecipes(recipes.filter((_, i) => i !== index));
+    console.log("removeRecipe", token);
+    const recipeId = recipes[index].id;
+    await deleteRecipeFromShoppingList(recipeId, token);
+    fetchShoppingList();
   };
 
   return (
-    <div className="shopping-list-page">
+    <div className="ShoppingList">
       <div className="content">
         <div className="recipes-list">
           <h2>List of Recipes</h2>
           <div className="recipes-scroll">
-            {recipes.map((recipe, index) => (
-              <div key={index} className="recipe-card">
-                <span className="recipe-name">{recipe}</span>
+            {recipes && recipes.map((recipe, index) => (
+              <div key={index} className="recipe-card" style={{ backgroundImage: `url(${recipe.images})` }}>
+                <span className="recipe-name">{recipe.title}</span>
                 <button
                   className="remove-button"
                   onClick={() => removeRecipe(index)}
@@ -56,14 +74,15 @@ const ShoppingList = () => {
         <div className="shopping-list">
           <h2>Shopping List</h2>
           <div className="ingredients-scroll">
-            {ingredients.map((ingredient, index) => (
-              <div key={index} className="ingredient-item">
+            {ingredients &&  Object.keys(ingredients).map((key) => (
+              
+              <div key={key} className="ingredient-item">
                 <input
                   type="checkbox"
-                  checked={ingredient.checked}
-                  onChange={() => toggleIngredient(index)}
+                  checked={ingredients[key].checked}
+                  onChange={() => toggleIngredient(key)}
                 />
-                <span>{ingredient.name}</span>
+                <span>{ingredients[key]["quantity"] + "" + ingredients[key]["unit"] + " " + key}</span>
               </div>
             ))}
           </div>

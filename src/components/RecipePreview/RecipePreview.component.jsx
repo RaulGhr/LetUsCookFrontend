@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import "./RecipePreview.style.scss";
 
 import like_white from "../../assets/icons/like_white.png";
+import like_white_selected from "../../assets/icons/like_white_selected.png";
 import fav from "../../assets/icons/fav.png";
 import fav_selected from "../../assets/icons/fav_selected.png";
 import Reviews from "../Review/Reviews";
-import { changeRecipeFavoriteStatus } from "../../services/recipe.api";
+import { changeRecipeFavoriteStatus, likeRecipe, dislikeRecipe } from "../../services/recipe.api";
 import { useAuth } from "../../contexts/authContext";
 
 /**
@@ -30,8 +31,12 @@ const RecipePreview = ({
   Rateing,
   User,
   isFavorite,
+  isLiked,
 }) => {
+  console.log("isLiked", isLiked);
   const [isFav, setIsFav] = React.useState(isFavorite);
+  const [isLikedS, setIsLikedS] = React.useState(isLiked);
+  const [rateing, setRateing] = React.useState(Rateing);
   const { token } = useAuth();
   const navigate = useNavigate();
 
@@ -41,6 +46,20 @@ const RecipePreview = ({
     setIsFav(!isFav);
     changeRecipeFavoriteStatus(Id, !isFav, token);
   };
+
+  const likeClickHandler = (e) => {
+    e.stopPropagation();
+    console.log("Like clicked", isLikedS, "ID", Id, "token", token);
+    setIsLikedS(!isLikedS);
+    if (isLikedS) {
+      setRateing(rateing - 1);
+      dislikeRecipe(Id, token);
+    } else {
+      setRateing(rateing + 1);
+      likeRecipe(Id, token);
+    }
+    // changeRecipeFavoriteStatus(Id, !isFav, token);
+  }
 
   useEffect(() => {
     setIsFav(isFavorite);
@@ -54,8 +73,12 @@ const RecipePreview = ({
       >
         <div className="buttons">
           <div className="likes">
-            <img src={like_white} alt="" />
-            <p>{Rateing}</p>
+            {isLikedS ? (
+              <img src={like_white_selected} alt="" onClick={likeClickHandler}/>
+            ) : (
+              <img src={like_white} alt="" onClick={likeClickHandler}/>
+            )}
+            <p>{rateing}</p>
           </div>
           {isFav ? (
             <img src={fav_selected} alt="" onClick={favoriteClickHandler} />

@@ -14,8 +14,8 @@ import { useAuth } from '../../contexts/authContext';
 
 const ProfilePage = () => {
     const [recipes, setRecipes] = useState([]);
-    const [folloingList, setFolloingList] = useState([]);
-    const [folloersList, setFolloersList] = useState([]);
+    const [followingList, setFolloingList] = useState({});
+    const [followersList, setFolloersList] = useState({});
     const [user, setUser] = useState(null);
     const [displaySection, setDisplaySection] = useState("created");
     const userContext = useAuth().user;
@@ -48,14 +48,27 @@ const ProfilePage = () => {
     };
 
     const fetchFollowing = async () => {
-        const following = await getFollowing(userContext.id);
+        var following = await getFollowing(token);
+        if(!following){
+          following = {};
+        }
+        console.log("following",following);
         setFolloingList(following);
     };
 
     const fetchFollowers = async () => {
-        const followers = await getFollowers(userContext.id);
+        var followers = await getFollowers(token);
+        if(!followers){
+          followers = {};
+        }
+        console.log("followers",followers);
         setFolloersList(followers);
     };
+
+    const unfollowHandler = async () => {
+      await fetchUser();
+      await fetchFollowing();
+    }
 
 
     const changeProfilePicture = async (e) => {
@@ -127,13 +140,14 @@ const ProfilePage = () => {
               <div className='dropdown'>
                 <span>{user.FollowingCount} Following</span>
                 <div className="dropdownContent">
-                  {folloingList.map((user, index) => <LineUserFollowDetails key={index} user={user} onButtonClick={() => fetchFollowing()}/>)}
+                  {/* {followingList.map((user, index) => <LineUserFollowDetails key={index} user={user} onButtonClick={() => fetchFollowing()}/>)} */}
+                  {Object.keys(followingList).map((key, index) => <LineUserFollowDetails key={index} user={followingList[key]} onButtonClick={unfollowHandler}/>)}
                 </div>
               </div>
               <div className='dropdown'>
                 <span>{user.FollowersCount} Followers</span>
                 <div className="dropdownContent followers">
-                  {folloersList.map((user, index) => <LineUserFollowDetails key={index} user={user}/>)}
+                  {Object.keys(followersList).map((key, index) => <LineUserFollowDetails key={index} user={followersList[key]}/>)}
                 </div>
               </div>
               

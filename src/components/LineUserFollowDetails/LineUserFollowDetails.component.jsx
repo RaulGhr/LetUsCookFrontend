@@ -21,8 +21,8 @@ const LineUserFollowDetails = ({ user, onButtonClick=null }) => {
 
   return (
     <div className='LineUserFollowDetails'>
-      <img src={user.ProfilePicture} alt="" />
-      <h3>{user.Username}</h3>
+      <img src={user.profileImage} alt="" />
+      <h3>{user.username}</h3>
       {onButtonClick && <button onClick={onButtonClickHandler}>Unfollow</button>}
     </div>
   );
